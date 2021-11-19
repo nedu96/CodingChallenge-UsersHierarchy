@@ -1,4 +1,13 @@
 
+
+#The function getSubOrdinates recieves input from user and the
+#datas are parsed from roles and users which are provided as input.
+#Inorder to get the sub Ordinates the given two sets of data are extracted based on the requirements.
+#Retrive the ID based on the input provided. Find parents for roles based on the Id in Roles. Using the Id with parent
+#that matches initial Users. using the ID to extract data from Users.
+
+
+# sample Input Roles
 roles = [
 {
 "Id": 1,
@@ -27,7 +36,7 @@ roles = [
 }
 ]
 
-
+#sample Input user
 users = [
 {
 "Id": 1,
@@ -56,49 +65,68 @@ users = [
 }
 ]
 
+
+#setRoles to set Values for Roles
 def setRoles(roles):
     return roles
     
-    
+#setRoles to set Values for Users
 def setUsers(users):
     return users
     
 
-
+#get subordinate values
 def getSubOrdinates(values):
+    
     RolesValues = setRoles(roles)
-    required_values = []
-    print(required_values)
-    for i in range(len(RolesValues)):
-        values_id = RolesValues[i].get('Id')
-        if values_id == values:
-            required_values.append(RolesValues[i])
-    print (required_values)
-    required_parent = []
-    LenOfValues = len(required_values)
-    values_Parent = required_values[0].get('Parent')
-    print(values_Parent)
-    for j in range(len(RolesValues)):
-        #print(required_values[i])
-        values_id = RolesValues[j].get('Id')
-        if (values_id) > (int(values_Parent) + 1) :
-            required_parent.append(RolesValues[j])
-    print(required_parent)
-    res = [ sub['Id'] for sub in required_parent ]
-    print(res)
 
-    required_users = []
+    #store objRoles dataset
+    IdValues = []
+
+    #Loop to find ID
+    for id in range(len(RolesValues)):
+        RoleValueId = RolesValues[id].get('Id')
+
+        #store value in Idvalues if the ID's matches
+        if RoleValueId == values:
+            IdValues.append(RolesValues[id])
+
+    
+    ParentData = []
+    LenOfValues = len(IdValues)
+    #get Parent values from Idvalues
+    ParentValues = IdValues[0].get('Parent')
+
+    #search and store values in Parent data based on 'Parent' values
+    for parent in range(len(RolesValues)):
+        
+        RoleValueId = RolesValues[parent].get('Id')
+        if (RoleValueId) > (int(ParentValues) + 1) :
+            ParentData.append(RolesValues[parent])
+
+    #Get all Id Values from ParentData 
+    IdValues = [ sub['Id'] for sub in ParentData ]
+    
+
+    RequiredUsers = []
+
+    #get values of users
     UserValues = setUsers(users)
-    for k in range(len(UserValues)):
-        values_user_id = UserValues[k].get('Role')
-        if values_user_id in res:
-            required_users.append(UserValues[k])
 
-    print(required_users)
+    #loop to run and retrive roles match it with ID
+    for UserVal in range(len(UserValues)):
+        ValuesUserID = UserValues[UserVal].get('Role')
+
+        #match roles with Id
+        if ValuesUserID in IdValues:
+            RequiredUsers.append(UserValues[UserVal])
+
+    #print output
+    print(RequiredUsers)
             
 
 setRoles(roles);
 
 setUsers(users);
 getSubOrdinates(1); # should return [{"Id": 2,"Name": "Emily Employee","Role": 4}, {"Id": 5, "Name": "Steve Trainer","Role": 5}]
-getSubOrdinates(1); # should return [{"Id": 2,"Name": "Emily Employee","Role": 4}, {"Id": 3,"Name": "Sam Supervisor","Role": 3},{"Id": 4,"Name": "Mary Manager","Role": 2}, {"Id": 5, "Name": "SteveTrainer","Role": 5}]
+getSubOrdinates(3); # should return [{"Id": 2,"Name": "Emily Employee","Role": 4}, {"Id": 3,"Name": "Sam Supervisor","Role": 3},{"Id": 4,"Name": "Mary Manager","Role": 2}, {"Id": 5, "Name": "SteveTrainer","Role": 5}]
