@@ -1,4 +1,4 @@
-<h1 align="center">Coding Challenge - Users Hierarchy 👋</h1>
+<h1 align="center">Coding Challenge - Users Hierarchy</h1>
 <p>
 </p>
 
@@ -191,10 +191,10 @@ Code Efficiency : 0.00003(time)
 
 ### Author
 
-Name: Nedunchezia Pandia Rajan
-Mail: nedu1996@gmail.com
-github: https://github.com/nedu96
-linkedin: https://www.linkedin.com/in/nedunchezia-pandia-rajan/
+* Name: Nedunchezia Pandia Rajan
+* Mail: nedu1996@gmail.com
+* github: https://github.com/nedu96
+* linkedin: https://www.linkedin.com/in/nedunchezia-pandia-rajan/
 
 ### Disclaimers
 
